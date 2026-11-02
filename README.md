@@ -15,13 +15,13 @@ Open the link it shows (usually http://localhost:5173).
 
 ## 2. Add YOUR picture
 
-Save your photo inside the `public` folder with this name:
+Save your photo inside the `public` folder as `PF.jpg` (or use `photo.jpg`,
+`photo.jpeg`, `photo.png` or `photo.webp`):
 
 ```
-public/photo.jpg
+public/PF.jpg
 ```
 
-(`photo.jpeg`, `photo.png` or `photo.webp` also work.)
 A photo with your face in the upper half looks best. Portrait (tall) photos are ideal.
 
 ## 3. Change the words to your own

@@ -2,8 +2,14 @@ import { useState } from "react";
 import { site } from "../data";
 
 // Looks for your picture in the "public" folder.
-// Save it as photo.jpg (or photo.jpeg / photo.png / photo.webp).
-const candidates = ["photo.jpg", "photo.jpeg", "photo.png", "photo.webp"];
+// The portrait is served from the public folder.
+const candidates = [
+  "PF.jpg",
+  "photo.jpg",
+  "photo.jpeg",
+  "photo.png",
+  "photo.webp",
+];
 
 export default function Photo() {
   const [i, setI] = useState(0);

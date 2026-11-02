@@ -529,7 +529,7 @@ main {
 }
 .hero-photo-frame {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   border-radius: 999px 999px 28px 28px;
   overflow: hidden;
   background: var(--bg-3);
@@ -538,7 +538,7 @@ main {
 }
 .hero-photo-inner {
   position: absolute;
-  inset: -8% 0;
+  inset: -3% 0;
   will-change: transform;
 }
 .hero-photo-inner img {

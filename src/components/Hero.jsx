@@ -57,11 +57,48 @@ export default function Hero({ ready }) {
           end: "bottom top",
           scrub: true,
         };
-        gsap.to(".hero-photo-inner", { yPercent: 14, ease: "none", scrollTrigger: st });
+        gsap.to(".hero-photo-inner", { yPercent: 6, ease: "none", scrollTrigger: st });
         gsap.to(".hero-text", { yPercent: -12, opacity: 0.2, ease: "none", scrollTrigger: st });
         gsap.to(".ridge-1", { yPercent: -18, ease: "none", scrollTrigger: st });
         gsap.to(".ridge-2", { yPercent: -9, ease: "none", scrollTrigger: st });
         gsap.to(".badge", { rotate: 120, ease: "none", scrollTrigger: st });
+
+        // A small pointer parallax adds depth without competing with scroll motion.
+        const photoFrame = root.current.querySelector(".hero-photo-frame");
+        const photoImage = root.current.querySelector(".hero-photo-inner img");
+
+        if (photoFrame && photoImage) {
+          const moveX = gsap.quickTo(photoImage, "x", {
+            duration: 0.8,
+            ease: "power3.out",
+          });
+          const moveY = gsap.quickTo(photoImage, "y", {
+            duration: 0.8,
+            ease: "power3.out",
+          });
+
+          const onPointerMove = (event) => {
+            if (event.pointerType !== "mouse") return;
+
+            const bounds = photoFrame.getBoundingClientRect();
+            const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+            const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+            moveX(x * -8);
+            moveY(y * -8);
+          };
+          const resetPhoto = () => {
+            moveX(0);
+            moveY(0);
+          };
+
+          photoFrame.addEventListener("pointermove", onPointerMove);
+          photoFrame.addEventListener("pointerleave", resetPhoto);
+
+          return () => {
+            photoFrame.removeEventListener("pointermove", onPointerMove);
+            photoFrame.removeEventListener("pointerleave", resetPhoto);
+          };
+        }
       });
 
       return () => mm.revert();
