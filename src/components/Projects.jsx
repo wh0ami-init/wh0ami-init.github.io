@@ -109,13 +109,34 @@ export default function Projects() {
             >
               <div className="work-visual">
                 <div className="work-visual-inner">
-                  <span className="work-no">{p.no}</span>
-                  <div className="mock">
-                    <i />
-                    <i />
-                    <i />
-                    <b />
-                  </div>
+                  {p.preview === "tourism" ? (
+                    <>
+                      <div className="tourism-art">
+                        <span className="preview-kicker">EXPLORE THE HIMALAYAS</span>
+                        <strong>SIKKIM</strong>
+                        <svg viewBox="0 0 500 220" aria-hidden="true">
+                          <path d="M0 178 85 82l42 49 76-102 76 106 53-61 56 91 47-52 65 65v42H0Z" />
+                          <path d="m155 119 48-90 61 85-38-25-20 19-20-22Z" />
+                        </svg>
+                      </div>
+                      <div className="chat-preview">
+                        <div className="chat-preview-head"><i /> Sikkim Travel Assistant</div>
+                        <p>Where would you like to explore?</p>
+                        <span>Plan a trip to Gangtok <b>↗</b></span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="charity-art">
+                        <span className="charity-mark">JCF</span>
+                        <span className="preview-kicker">COMMUNITY · CARE · HOPE</span>
+                        <strong>Small acts.<br />Lasting change.</strong>
+                        <i />
+                        <i />
+                      </div>
+                      <div className="charity-seal" aria-hidden="true">✳</div>
+                    </>
+                  )}
                 </div>
                 <span className={"work-badge" + (p.live ? " live" : "")}>
                   {p.live && <b className="dot on" />}
@@ -130,15 +151,29 @@ export default function Projects() {
                     <li key={s}>{s}</li>
                   ))}
                 </ul>
-                {p.url && (
-                  <a
-                    className="link-arrow"
-                    href={p.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Visit website <span>↗</span>
-                  </a>
+                {(p.url || p.github) && (
+                  <div className="work-links">
+                    {p.url && (
+                      <a
+                        className="link-arrow"
+                        href={p.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Visit live site <span>↗</span>
+                      </a>
+                    )}
+                    {p.github && (
+                      <a
+                        className="link-arrow"
+                        href={p.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View source <span>↗</span>
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
             </article>

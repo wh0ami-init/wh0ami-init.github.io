@@ -85,21 +85,28 @@ export default function Nav() {
         <button
           className={"menu-btn" + (open ? " is-open" : "")}
           onClick={() => setOpen(!open)}
-          aria-label="Open menu"
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <span />
           <span />
         </button>
       </div>
 
-      <div className={"menu" + (open ? " is-open" : "")}>
+      <nav
+        id="mobile-menu"
+        className={"menu" + (open ? " is-open" : "")}
+        aria-label="Mobile"
+        aria-hidden={!open}
+        inert={!open}
+      >
         {links.map((l) => (
           <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
             {l.label}
           </a>
         ))}
-      </div>
+      </nav>
     </header>
   );
 }

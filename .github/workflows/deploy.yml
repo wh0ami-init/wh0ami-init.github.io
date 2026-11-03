@@ -27,8 +27,11 @@ jobs:
           node-version: lts/*
           cache: npm
       - run: npm ci
+      - id: pages
+        uses: actions/configure-pages@v4
       - run: npm run build
-      - uses: actions/configure-pages@v4
+        env:
+          VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist

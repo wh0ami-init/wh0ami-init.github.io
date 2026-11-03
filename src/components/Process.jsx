@@ -72,9 +72,9 @@ export default function Process() {
         </div>
 
         <ol className="steps">
-          <div className="steps-line" aria-hidden="true">
+          <li className="steps-line" aria-hidden="true">
             <i />
-          </div>
+          </li>
           {process.map((s, i) => (
             <li className="step" key={s.title}>
               <span className="step-no">0{i + 1}</span>

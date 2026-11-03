@@ -84,11 +84,7 @@ export default function Contact() {
           </ul>
         </div>
 
-        <form
-          className="contact-form"
-          onSubmit={(e) => e.preventDefault()}
-          aria-label="Send me a message"
-        >
+        <div className="contact-form">
           <label>
             <span>Your name</span>
             <input
@@ -119,7 +115,7 @@ export default function Contact() {
               </a>
             </Magnetic>
           </div>
-        </form>
+        </div>
       </div>
 
       <footer className="footer">

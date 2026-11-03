@@ -3,14 +3,14 @@
 
 export const site = {
   name: "Pawan Thapa",
-  initials: "YN",
+  initials: "PT",
   role: "Website Developer",
   location: "Gangtok, Sikkim",
   email: "anonymous.fname.lname.peracc@gmail.com",
   // Country code + number, no "+" and no spaces. Example: 919812345678
   whatsapp: "917551873596",
   github: "https://github.com/wh0ami-init/",
-  linkedin: "https://www.linkedin.com/in/",
+  linkedin: "",
   instagram: "",
   available: true,
 };
@@ -65,34 +65,25 @@ export const services = [
 
 export const projects = [
   {
-    no: "01",
     title: "Jagannath Charity Foundation",
     type: "Live project",
     live: true,
     text: "A charity website built as a team project. It shares the foundation's work and helps people connect with it.",
     stack: ["React", "FastAPI", "Vercel"],
     url: "https://jagannath-charity-foundation.vercel.app",
+    preview: "charity",
     hue: 18,
   },
   {
-    no: "02",
-    title: "Himalayan Homestay",
-    type: "Concept design",
-    live: false,
-    text: "A sample website for a homestay: rooms, photo gallery, location and a WhatsApp booking button.",
-    stack: ["React", "GSAP", "WhatsApp link"],
-    url: "",
+    title: "Sikkim Tourism Assistant",
+    type: "Live project",
+    live: true,
+    text: "An AI chatbot project focused on helping people explore tourism in Sikkim.",
+    stack: ["AI chatbot", "Tourism", "Sikkim"],
+    url: "https://sikkimtourism-ai.vercel.app",
+    github: "https://github.com/wh0ami-init/Sikkim_Tourism_Department--AI_ChatBot/",
+    preview: "tourism",
     hue: 160,
-  },
-  {
-    no: "03",
-    title: "Gangtok Café Menu",
-    type: "Concept design",
-    live: false,
-    text: "A sample café website with a menu people can open from a QR code on the table.",
-    stack: ["React", "Mobile first"],
-    url: "",
-    hue: 275,
   },
 ];
 
