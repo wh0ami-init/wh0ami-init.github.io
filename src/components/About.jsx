@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { about } from "../data";
+import { about, site } from "../data";
+import Photo from "./Photo";
 
 export default function About() {
   const root = useRef(null);
@@ -28,6 +29,37 @@ export default function About() {
           }
         );
 
+        // Portrait: curtain reveal, then a slow zoom-out while scrolling past.
+        gsap.from(".about-portrait-frame", {
+          clipPath: "inset(0% 0% 100% 0%)",
+          duration: 1.4,
+          ease: "power4.inOut",
+          scrollTrigger: { trigger: ".about-portrait", start: "top 82%" },
+        });
+        gsap.fromTo(
+          ".about-portrait img",
+          { scale: 1.3, yPercent: -4 },
+          {
+            scale: 1,
+            yPercent: 4,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".about-portrait",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+        gsap.from(".about-portrait-cap > *", {
+          y: 20,
+          opacity: 0,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".about-portrait", start: "top 70%" },
+        });
+
         gsap.from(".fact", {
           y: 30,
           opacity: 0,
@@ -49,13 +81,25 @@ export default function About() {
           <b className="dot on" /> About me
         </p>
 
-        <p className="about-text">
-          {words.map((w, i) => (
-            <span className="w" key={i}>
-              {w}{" "}
-            </span>
-          ))}
-        </p>
+        <div className="about-grid">
+          <figure className="about-portrait">
+            <div className="about-portrait-frame">
+              <Photo />
+            </div>
+            <figcaption className="about-portrait-cap">
+              <span className="cap-name">{site.name}</span>
+              <span className="cap-role">{site.role}</span>
+            </figcaption>
+          </figure>
+
+          <p className="about-text">
+            {words.map((w, i) => (
+              <span className="w" key={i}>
+                {w}{" "}
+              </span>
+            ))}
+          </p>
+        </div>
 
         <dl className="facts">
           {about.facts.map((f) => (

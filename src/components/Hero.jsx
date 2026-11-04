@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { site } from "../data";
+import { site, projects } from "../data";
 import { scrollToTarget } from "../scroll";
 import Photo from "./Photo";
 import Marquee from "./Marquee";
@@ -42,10 +42,26 @@ export default function Hero({ ready }) {
             { y: 28, opacity: 0, duration: 1, stagger: 0.08 },
             0.5
           )
+          .from(".corner", { opacity: 0, scale: 0.4, duration: 0.8, stagger: 0.08 }, 1.1)
           .from(
-            ".badge",
-            { scale: 0, rotate: -90, duration: 1.2, ease: "back.out(1.6)" },
-            0.9
+            ".photo-card",
+            { y: 40, opacity: 0, duration: 1.1, ease: "power3.out" },
+            1.0
+          )
+          .from(
+            ".photo-chip",
+            { y: 24, opacity: 0, scale: 0.9, duration: 1, stagger: 0.15, ease: "back.out(1.5)" },
+            1.25
+          )
+          .from(
+            ".stat-num",
+            {
+              textContent: 0,
+              duration: 1.4,
+              ease: "power2.out",
+              snap: { textContent: 1 },
+            },
+            1.4
           )
           .from(".ridge", { yPercent: 30, opacity: 0, duration: 1.6, stagger: 0.15 }, 0.2)
           .from(".marquee", { opacity: 0, y: 20, duration: 1 }, 1);
@@ -61,7 +77,8 @@ export default function Hero({ ready }) {
         gsap.to(".hero-text", { yPercent: -12, opacity: 0.2, ease: "none", scrollTrigger: st });
         gsap.to(".ridge-1", { yPercent: -18, ease: "none", scrollTrigger: st });
         gsap.to(".ridge-2", { yPercent: -9, ease: "none", scrollTrigger: st });
-        gsap.to(".badge", { rotate: 120, ease: "none", scrollTrigger: st });
+        gsap.to(".photo-chip.chip-status", { yPercent: -40, ease: "none", scrollTrigger: st });
+        gsap.to(".photo-chip.chip-stat", { yPercent: -20, ease: "none", scrollTrigger: st });
 
         // A small pointer parallax adds depth without competing with scroll motion.
         const photoFrame = root.current.querySelector(".hero-photo-frame");
@@ -77,18 +94,26 @@ export default function Hero({ ready }) {
             ease: "power3.out",
           });
 
+          const tiltX = gsap.quickTo(photoFrame, "rotationY", { duration: 0.9, ease: "power3.out" });
+          const tiltY = gsap.quickTo(photoFrame, "rotationX", { duration: 0.9, ease: "power3.out" });
+          gsap.set(photoFrame, { transformPerspective: 1100 });
+
           const onPointerMove = (event) => {
             if (event.pointerType !== "mouse") return;
 
             const bounds = photoFrame.getBoundingClientRect();
             const x = (event.clientX - bounds.left) / bounds.width - 0.5;
             const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-            moveX(x * -8);
-            moveY(y * -8);
+            moveX(x * -14);
+            moveY(y * -14);
+            tiltX(x * 6);
+            tiltY(y * -6);
           };
           const resetPhoto = () => {
             moveX(0);
             moveY(0);
+            tiltX(0);
+            tiltY(0);
           };
 
           photoFrame.addEventListener("pointermove", onPointerMove);
@@ -188,22 +213,27 @@ export default function Hero({ ready }) {
             <div className="hero-photo-inner">
               <Photo />
             </div>
+            <div className="photo-shade" aria-hidden="true" />
+            <span className="corner tl" aria-hidden="true" />
+            <span className="corner tr" aria-hidden="true" />
           </div>
-          <div className="badge" aria-hidden="true">
-            <svg viewBox="0 0 120 120">
-              <defs>
-                <path
-                  id="circ"
-                  d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"
-                />
-              </defs>
-              <text>
-                <textPath href="#circ">
-                  OPEN FOR PROJECTS • GANGTOK • SIKKIM •
-                </textPath>
-              </text>
-            </svg>
-            <span className="badge-arrow">↘</span>
+
+          <div className="photo-card">
+            <span className="photo-card-name">{site.name}</span>
+            <span className="photo-card-role">
+              {site.role} · {site.location}
+            </span>
+          </div>
+
+          <div className="photo-chip chip-status">
+            <b className={site.available ? "dot on" : "dot"} />
+            {site.available ? "Available for work" : "Currently busy"}
+          </div>
+          <div className="photo-chip chip-stat">
+            <strong>
+              <span className="stat-num">{projects.length}</span>+
+            </strong>
+            Live projects
           </div>
         </div>
       </div>
